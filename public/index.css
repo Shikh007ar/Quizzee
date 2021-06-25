@@ -1,17 +1,8 @@
 /* Everything Related to main page styling */
 
-* {
-    padding: 0;
-    margin: 0;
-    color: #1a1f36;
-    box-sizing: border-box;
-    word-wrap: break-word;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Ubuntu, sans-serif;
-}
-
 body {
     min-height: 100%;
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
 }
 
 h1 {
@@ -357,3 +348,58 @@ a.ssolink {
     height: 150px;
   
   }
+
+  /* Styling of Portal */
+
+  #bg-dark{
+    background-color: #1d2d50;
+}
+.details{
+  text-align: center;
+  font-weight: bold;   
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+}
+#portalTop:hover{
+  color: #ffc93c;
+  transition-duration: 1s;
+}
+.portalImg{
+  height: 200px;
+  width: 200px;
+  margin: auto;
+  filter: grayscale(30%);
+  margin-top: 10px;
+}
+@media(max-width: 995px){
+  .portalImg{
+    height: 120px;
+    width: 120px;
+  }
+}
+@media(max-width: 750px){
+  .portalImg{
+    height: 200px;
+  width: 200px;
+  }
+}
+.featureButton{
+  background-color:  #1f4068; 
+  color: white; 
+  font-weight: bold;
+}
+
+.feedImage{
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+}
+@media(max-width: 500px)
+{
+.feedImage{
+  width: 70px;
+  height: 70px;
+}
+}
+
+

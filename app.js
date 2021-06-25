@@ -31,6 +31,9 @@ app.use(session({
   }));
   app.use(passport.initialize());
   app.use(passport.session());
+
+let foundPath;
+let user_id ,movie;
   
   const userDetail = new mongoose.Schema({
     name: String,
@@ -39,7 +42,7 @@ app.use(session({
     password: String,
     googleId: String,
     githubId: String,
-    imagename: String,
+    imagename: String, 
   });
   userDetail.plugin(passportLocalMongoose, {
     selectFields: 'username name lname imagename'
@@ -147,8 +150,17 @@ const upload = multer({ storage: Storage }).single("inpFile");
   });
 
   app.get("/portal", function(req, res){
-      res.render("portal");
-  })
+    if(req.isAuthenticated()){
+      console.log(req.user._id);
+      Detail.findById(req.user._id, function(err, doc){
+        if(err) console.log(err);
+        else movie = doc;
+      });
+      console.log(movie);
+      res.render("portal", {printData: movie});
+    } 
+    else res.redirect("/loginRegister");
+  });
 
 
   app.post("/login", function(req, res){
@@ -169,12 +181,13 @@ const upload = multer({ storage: Storage }).single("inpFile");
             try{
               movie = await Detail.findOne({_id: user_id});
               console.log(movie.username);
-              if(foundPath === "/loginRegister") 
+              res.render("portal", {printData: movie });
+            //   if(foundPath === "/loginRegister") 
   
-               res.render("portal", {printData: movie });
-          else{
-            res.redirect(foundPath);
-          }
+              
+        //   else{
+        //     res.redirect(foundPath);
+        //   }
             } catch(error){
               console.log(error);
             }
@@ -185,6 +198,10 @@ const upload = multer({ storage: Storage }).single("inpFile");
     })
   });
 
+  app.post("/logout", function(req, res){
+    req.logout();
+    res.redirect("/");
+  });
 
 
 
