@@ -1,0 +1,59 @@
+<%- include("partials/header") -%>
+
+
+<div class="div21 container" style="box-shadow: 0px 5px 20px -8px #917d91;">
+    <div class="col-lg-12">
+      <form action="/register" class="form-register" method="POST" enctype="multipart/form-data">
+
+        <p style="margin-top: 50px;" class="paragraph">Registration of your portal</p>
+        <div class="image-preview" id="imagePreview" style="text-align: center;">
+          <img class="image-preview__image" src="" alt="Image Preview">
+          <span class="image-preview__default-text">Upload Image</span>
+        </div>
+        <p class="Label">First Name</p>
+        <input type="text" name="first" class="form-control top" placeholder="Arijit" required autofocus>
+        <p class="Label">Last Name</p>
+        <input type="text" name="last" class="form-control middle" placeholder="Tripathi" required>
+        <p class="Label">Email Address</p>
+        <input type="email" name="username" class="form-control bottom" placeholder="arijittripathi07@gmail.com" required>
+        <p class="Label">Password</p>
+        <input type="password" name="password" class="form-control bottom" placeholder="**********" required>
+        <p class="Label">Upload image:-</p>
+        <input type="file" name="inpFile" id="inpFile" accept="image/*" required><br>
+        <button style="margin-top: 30px; margin-bottom: 30px; padding: 5px 30px 5px 30px;" class="btn btn-sm btn-dark " type="submit">REGISTER</button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<script>
+  const inpFile = document.getElementById("inpFile");
+  const previewContainer = document.getElementById("imagePreview");
+  const previewImage = previewContainer.querySelector(".image-preview__image");
+  const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
+
+  inpFile.addEventListener("change", function(){
+    const file = this.files[0];
+    if(file){
+      const reader = new FileReader();
+      previewDefaultText.style.display = "none";
+      previewImage.style.display = "block";
+      reader.addEventListener("load", function(){
+        previewImage.setAttribute("src", this.result);
+      });
+      reader.readAsDataURL(file);
+    }else {
+      previewDefaultText.style.display = "null";
+      previewImage.style.display = "null";
+      previewImage.setAttribute("src", "");
+    }
+  })
+
+</script>
+
+
+<%- include("partials/footer") -%>
