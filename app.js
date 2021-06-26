@@ -115,10 +115,10 @@ app.get("/auth/google/portal",
     res.render("index");
 });
 
-app.get("/loginRegister", function(req, res){
-    console.log("hello");
-    res.render("loginRegister");
-})
+// app.get("/loginRegister", function(req, res){
+//     console.log("hello");
+//     res.render("loginRegister");
+// })
 
 app.get("/register", function(req, res){
     res.render("register");
@@ -159,7 +159,7 @@ const upload = multer({ storage: Storage }).single("inpFile");
       console.log(movie);
       res.render("portal", {printData: movie});
     } 
-    else res.redirect("/loginRegister");
+    else res.redirect("/");
   });
 
 
