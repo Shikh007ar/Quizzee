@@ -13,6 +13,8 @@ const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require("mongoose-findOrCreate");
 const GitHubStrategy = require("Passport-GitHub2").Strategy;
+const alert = require('alert');
+
 
 
 
@@ -197,6 +199,7 @@ const upload = multer({ storage: Storage }).single("inpFile");
               console.log(movie.username);
               res.render("portal", {printData: movie });
             } catch(error){
+              res.redirect("/");
               console.log(error);
             }
           }
@@ -277,6 +280,51 @@ app.post("/adminLogin", function(req, res){
       })
 })
 
+app.post("/adminPortal", function(req, res){
+  const qus = new Question({
+    subject: req.body.Cname,
+      nmbr: req.body.anss,
+      question: req.body.CQ,
+      answer: req.body.QA,
+      option: [
+        req.body.QO1,
+        req.body.QO2,
+        req.body.QO3,
+        req.body.QO4
+      ]
+    });
+    qus.save();
+    alert("Question is saved in respective Course database");
+    res.render("adminPortal", {printData: movie});
+});
+
+app.get("/allQuiz", function(req, res){
+  Question.find({}, function(err, doc){
+    if(err) console.log(err);
+    else qq=doc;
+    console.log(doc);
+  })
+  // console.log(qq);
+  res.render("allQuiz", {printData: movie, showQus: qq });
+})
+
+app.post("/removeQus", function(req,res){
+  let clickedQus = req.body.button;
+  Question.findByIdAndRemove(clickedQus, function(err){
+    if(err) console.log(err);
+    else {
+      console.log("Data successfully Deleted!");
+      res.redirect("/allQuiz");
+    }
+  });
+})
+
+
+
+
+// app.post("/quiz", function(req, res){
+//   console.log(req.body.q1);
+// })
 
 
 app.listen(3000, function(){

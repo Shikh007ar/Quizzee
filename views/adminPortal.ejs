@@ -4,6 +4,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark p-0" id="bg-dark">
 
     <div class="container-fluid">
+        <a class="navbar-brand " id="portalTop" href="/allQuiz">Edit Quizes</a>
           
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -48,49 +49,56 @@
  <div style="margin-top: 70px;" class="container">
     <div class="title">Enter Quiz Details</div>
     <div class="content">
-        <form  action="#">
+        <form action="/adminPortal" method="POST">
             <div  class="user-details">
                 <div class="input-box">
                     <span style="text-align: left;" class="details">Course</span>
-                    <input type="text" placeholder="Enter your Course" required>
+                    <input name="Cname" type="text" placeholder="Enter your Course" required>
                 </div>
             </div>
             <div class="user-details">
                 <div class="input-box">
                     <span style="text-align: left;" class="details">Question</span>
-                    <input type="text" placeholder="Enter your Question" required>
+                    <input name="CQ" type="text" placeholder="Enter your Question" required>
                 </div>
             </div>
+
             <div class="user-details">
                 <div class="input-box">
-                    <span style="text-align: left;" class="details">Answer</span>
-                    <input type="number" placeholder="Enter Answer" required>
+                    <span for="ans" style="text-align: left;" class="details">Answer</span>
+                    <!-- <input name="QA"  placeholder="Enter Answer" required> -->
+                    <select id="ans" name="anss">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                      </select>
                 </div>
             </div>
             <div class="user-details">
                 <div class="input-box">
                     <span style="text-align: left;" class="details">Option 1</span>
-                    <input type="text" placeholder="Option 1" required>
+                    <input name="QO1" type="text" placeholder="Option 1" required>
                 </div>
             </div>
 
             <div class="user-details">
                 <div class="input-box">
                     <span style="text-align: left;" class="details">Option 2</span>
-                    <input type="text" placeholder="Option 2" required>
+                    <input name="QO2" type="text" placeholder="Option 2" required>
                 </div>
             </div>
 
             <div class="user-details">
                 <div class="input-box">
                     <span style="text-align: left;" class="details">Option 3</span>
-                    <input type="text" placeholder="Option 3" required>
+                    <input name="QO3" type="text" placeholder="Option 3" required>
                 </div>
             </div>
             <div class="user-details">
                 <div class="input-box">
                     <span style="text-align: left;"  class="details">Option 4</span>
-                    <input type="text" placeholder="Option 4" required>
+                    <input name="QO4" type="text" placeholder="Option 4" required>
                 </div>
             </div>
 
