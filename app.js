@@ -19,7 +19,7 @@ const alert = require('alert');
 
 
 
-mongoose.connect('mongodb://localhost:27017/QuizData', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb+srv://Quizze:shikhar123@cluster0.hymwg.mongodb.net/QuizData', {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.set("useCreateIndex", true);
 mongoose.set('useFindAndModify', false);
 
@@ -192,11 +192,11 @@ const upload = multer({ storage: Storage }).single("inpFile");
       else{
         passport.authenticate("local")(req, res, function(){
           user_id = req.user._id;
-          console.log(user_id);
+          // console.log(user_id);
           async function run(){
             try{
               movie = await Detail.findOne({_id: user_id});
-              console.log(movie.username);
+              // console.log(movie.username);
               res.render("portal", {printData: movie });
             } catch(error){
               res.redirect("/");
@@ -243,7 +243,7 @@ app.get("/quiz", function(req, res){
   Question.find({}, function(err, doc){
     if(err) console.log(err);
     else qq=doc;
-    console.log(doc);
+    // console.log(doc);
   })
   console.log(qq);
   res.render("quiz", {printData: movie, foundqus: qq});
@@ -271,10 +271,12 @@ app.post("/adminLogin", function(req, res){
       adminUser = req.body.username;
       adminPas  = req.body.password;
       Admin.find({"_id" : process.env.ADMIN_ID}, function(err, doc){
+        // console.log(doc[0]);
         if(doc[0].username==adminUser && doc[0].password==adminPas){
           movie = doc;
           res.render("adminPortal", {printData: movie});
         }else{
+          console.log("hey");
           console.log(err);
         }
       })
@@ -320,15 +322,21 @@ app.post("/removeQus", function(req,res){
 })
 
 
+// mongo "mongodb+srv://cluster0.hymwg.mongodb.net/myFirstDatabase" --username <username>
 
 
 // app.post("/quiz", function(req, res){
 //   console.log(req.body.q1);
 // })
 
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
 
-app.listen(3000, function(){
-    console.log("server is running on port 3000")
+
+app.listen(port, function(){
+    console.log("server started successfully!")
   });
   
 
