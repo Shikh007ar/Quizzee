@@ -182,12 +182,6 @@ const upload = multer({ storage: Storage }).single("inpFile");
               movie = await Detail.findOne({_id: user_id});
               console.log(movie.username);
               res.render("portal", {printData: movie });
-            //   if(foundPath === "/loginRegister") 
-  
-              
-        //   else{
-        //     res.redirect(foundPath);
-        //   }
             } catch(error){
               console.log(error);
             }
@@ -203,9 +197,39 @@ const upload = multer({ storage: Storage }).single("inpFile");
     res.redirect("/");
   });
 
+  const questions = new mongoose.Schema({
+    subject: String,
+    nmbr: String,
+    question: String,
+    answer: String,
+    options:{
+      type: [String]
+    }  
+  });
+  const Question = new mongoose.model("Question", questions);
+const qus = new Question({
 
-
-
+  subject: "Javascript",
+  nmbr: "3",
+  question: "3. Where does the majority of plastic waste end up?",
+  answer: "Oceans",
+  options: [
+    "Recycled",
+    "Oceans",
+    "Burned for energy",
+    "Landfills"
+  ]
+});
+// qus.save();
+let qq;
+app.get("/quiz", function(req, res){
+  Question.find({}, function(err, doc){
+    if(err) console.log(err);
+    else qq=doc;
+  })
+  console.log(qq);
+  res.render("quiz", {printData: movie, foundqus: qq});
+})
 
 
 
@@ -213,3 +237,4 @@ app.listen(3000, function(){
     console.log("server is running on port 3000")
   });
   
+
