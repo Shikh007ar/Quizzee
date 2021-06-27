@@ -7,7 +7,7 @@
  <div >
  <div class="container">
    <div class="heading">
-     <h1 class="heading__text">Quiz</h1>
+     <h1 class="heading__text"><%= foundqus[0].subject %></h1>
    </div>
  
    <!-- Quiz section -->
@@ -39,22 +39,22 @@
                 <label class="quiz-form__ans" for=<%= a %>>
                     <input type="radio" name=<%= n %> id=<%= a %> value="A" checked />
                     <span class="design"></span>
-                    <span class="text"><%= foundqus[i].options[0] %></span>
+                    <span class="text"><%= foundqus[i].option[0] %></span>
                   </label>
                   <label class="quiz-form__ans" for=<%= b %>>
                     <input type="radio" name=<%= n %> id=<%= b %> value="B" />
                     <span class="design"></span>
-                    <span class="text"><%= foundqus[i].options[1] %></span>
+                    <span class="text"><%= foundqus[i].option[1] %></span>
                   </label>
                   <label class="quiz-form__ans" for=<%= c %>>
                     <input type="radio" name=<%= n %> id=<%= c %> value="C" />
                     <span class="design"></span>
-                    <span class="text"><%= foundqus[i].options[2] %></span>
+                    <span class="text"><%= foundqus[i].option[2] %></span>
                   </label>
                   <label class="quiz-form__ans" for=<%= d %>>
                     <input type="radio" name=<%= n %> id=<%= d %> value="D" />
                     <span class="design"></span>
-                    <span class="text"><%= foundqus[i].options[3] %></span>
+                    <span class="text"><%= foundqus[i].option[3] %></span>
                   </label>
               </div>
            <% } %>

@@ -100,12 +100,23 @@ app.get('/auth/google',
   passport.authenticate("google", { scope: ["profile"] })
 );
 app.get("/auth/google/portal",
-  passport.authenticate("google", { failureRedirect: '/loginRegister' }),
+  passport.authenticate("google", { failureRedirect: '/' }),
   function(req, res) {
     // movie = req.user;
     res.redirect("/portal");
   });
 
+
+  // routes for github authentication
+app.get('/auth/github',
+passport.authenticate('github', { scope: [ "profile" ] })
+);
+app.get('/auth/github/portal',
+passport.authenticate('github', { failureRedirect: '/' }),
+function(req, res) {
+  // Successful authentication, redirect to portal.
+  res.redirect('/portal');
+});
 
 
 
@@ -155,15 +166,18 @@ const upload = multer({ storage: Storage }).single("inpFile");
       Detail.findById(req.user._id, function(err, doc){
         if(err) console.log(err);
         else movie = doc;
+        // console.log(movie.name);
       });
-      console.log(movie);
+      
       res.render("portal", {printData: movie});
     } 
     else res.redirect("/");
   });
 
+  var adminName, adminPass;
 
   app.post("/login", function(req, res){
+
  
     const user = new Detail({
       username: req.body.username,
@@ -199,21 +213,20 @@ const upload = multer({ storage: Storage }).single("inpFile");
 
   const questions = new mongoose.Schema({
     subject: String,
-    nmbr: String,
-    question: String,
-    answer: String,
-    options:{
-      type: [String]
-    }  
+      nmbr: String,
+      question: String,
+      answer: String,
+      option: {
+        type: [String]
+      }
   });
   const Question = new mongoose.model("Question", questions);
 const qus = new Question({
-
-  subject: "Javascript",
-  nmbr: "3",
-  question: "3. Where does the majority of plastic waste end up?",
+subject: "Javascript",
+  nmbr: "1",
+  question: "1. Where does the majority of plastic waste end up?",
   answer: "Oceans",
-  options: [
+  option: [
     "Recycled",
     "Oceans",
     "Burned for energy",
@@ -221,14 +234,47 @@ const qus = new Question({
   ]
 });
 // qus.save();
+
 let qq;
 app.get("/quiz", function(req, res){
   Question.find({}, function(err, doc){
     if(err) console.log(err);
     else qq=doc;
+    console.log(doc);
   })
   console.log(qq);
   res.render("quiz", {printData: movie, foundqus: qq});
+})
+
+
+const admin = new mongoose.Schema({
+  username: String,
+  password: String
+});
+const Admin= new mongoose.model("Admin", admin);
+const ad = new Admin({
+  username: process.env.ADMIN_USERNAME,
+  password: process.env.ADMIN_PASSWORD
+  });
+  // ad.save();
+
+
+var adminUser, adminPas;
+app.get("/adminLogin", function(req, res){
+  res.render("adminLogin");
+})
+
+app.post("/adminLogin", function(req, res){
+      adminUser = req.body.username;
+      adminPas  = req.body.password;
+      Admin.find({"_id" : process.env.ADMIN_ID}, function(err, doc){
+        if(doc[0].username==adminUser && doc[0].password==adminPas){
+          movie = doc;
+          res.render("adminPortal", {printData: movie});
+        }else{
+          console.log(err);
+        }
+      })
 })
 
 

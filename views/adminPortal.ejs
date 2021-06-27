@@ -1,0 +1,111 @@
+<%- include("partials/header") -%>
+ 
+
+<nav class="navbar navbar-expand-lg navbar-dark p-0" id="bg-dark">
+
+    <div class="container-fluid">
+          
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+   
+          
+         
+       
+         <div style="margin-right: 20px;" class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-user"></i> Welcome <%=printData[0].username%>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          
+                          <li><hr class="dropdown-divider"></li>
+                          <li> <form id="LOG" action="/logout" method="post">
+                            <a style="cursor: pointer;" class="dropdown-item" onclick="myFunction()">
+                             <i class="fa fa-user-times"></i> Logout
+                           </a>
+                          </form></li>
+                        </ul>
+                      </li>
+                 
+                 <li class="nav-item">
+                     <a href="/user/1/notification" class="nav-link">
+                         <i class="fa fa-bell"></i><span class="badge badge-danger badge-pill">2</span>
+                     </a>
+                 </li>
+               </ul>
+      
+            
+         </div>
+        </div>
+   </nav>
+ 
+
+
+
+
+ <div style="margin-top: 70px;" class="container">
+    <div class="title">Enter Quiz Details</div>
+    <div class="content">
+        <form  action="#">
+            <div  class="user-details">
+                <div class="input-box">
+                    <span style="text-align: left;" class="details">Course</span>
+                    <input type="text" placeholder="Enter your Course" required>
+                </div>
+            </div>
+            <div class="user-details">
+                <div class="input-box">
+                    <span style="text-align: left;" class="details">Question</span>
+                    <input type="text" placeholder="Enter your Question" required>
+                </div>
+            </div>
+            <div class="user-details">
+                <div class="input-box">
+                    <span style="text-align: left;" class="details">Answer</span>
+                    <input type="number" placeholder="Enter Answer" required>
+                </div>
+            </div>
+            <div class="user-details">
+                <div class="input-box">
+                    <span style="text-align: left;" class="details">Option 1</span>
+                    <input type="text" placeholder="Option 1" required>
+                </div>
+            </div>
+
+            <div class="user-details">
+                <div class="input-box">
+                    <span style="text-align: left;" class="details">Option 2</span>
+                    <input type="text" placeholder="Option 2" required>
+                </div>
+            </div>
+
+            <div class="user-details">
+                <div class="input-box">
+                    <span style="text-align: left;" class="details">Option 3</span>
+                    <input type="text" placeholder="Option 3" required>
+                </div>
+            </div>
+            <div class="user-details">
+                <div class="input-box">
+                    <span style="text-align: left;"  class="details">Option 4</span>
+                    <input type="text" placeholder="Option 4" required>
+                </div>
+            </div>
+
+
+            <div class="button">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+<%- include("partials/footer") -%>
