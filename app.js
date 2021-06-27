@@ -9,10 +9,6 @@ const session = require("express-session");
 const passport = require("passport");
 const url = require("url");
 const passportLocalMongoose = require("passport-local-mongoose");
-const LocalStrategy = require('passport-local').Strategy;
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-// const findOrCreate = require('mongoose-findorcreate');
-const GitHubStrategy = require("Passport-GitHub2").Strategy;
 const alert = require('alert');
 
 
@@ -62,59 +58,6 @@ let user_id ,movie;
       done(err, user);
     });
   });
-
-
-
-  
-// for google authentication
-// passport.use(new GoogleStrategy({
-//     clientID: process.env.CLIENT_ID,
-//     clientSecret: process.env.CLIENT_SECRET,
-//     callbackURL: "http://localhost:3000/auth/google/portal",
-//     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
-//   },
-//   function(accessToken, refreshToken, profile, cb) {
-//     Detail.findOrCreate({ googleId: profile.id, name: profile.name.givenName, lname: profile.name.familyName, imagename: profile.photos[0].value }, function (err, user) {
-//       return cb(err, user);
-//     });
-//   }
-// ));
-
-
-// for github authentication
-// passport.use(new GitHubStrategy({
-//     clientID: process.env.GITHUB_CLIENT_ID,
-//     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-//     callbackURL: "http://localhost:3000/auth/github/portal"
-//   },
-//   function(accessToken, refreshToken, profile, done) {
-//     Detail.findOrCreate({ githubId: profile.id, name: profile.username, imagename: profile.photos[0].value  }, function (err, user) {
-//       return done(err, user);
-//     });
-//   }
-// ));
-
-
-// routes for google authentication
-// app.get('/auth/google',
-//   passport.authenticate("google", { scope: ["profile"] })
-// );
-// app.get("/auth/google/portal",
-//   passport.authenticate("google", { failureRedirect: '/' }),
-//   function(req, res) {
-//     res.redirect("/portal");
-//   });
-
-
-  // routes for github authentication
-// app.get('/auth/github',
-// passport.authenticate('github', { scope: [ "profile" ] })
-// );
-// app.get('/auth/github/portal',
-// passport.authenticate('github', { failureRedirect: '/' }),
-// function(req, res) {
-//   res.redirect('/portal');
-// });
 
 
 
