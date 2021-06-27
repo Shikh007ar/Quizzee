@@ -11,7 +11,7 @@ const url = require("url");
 const passportLocalMongoose = require("passport-local-mongoose");
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const findOrCreate = require("mongoose-findOrCreate");
+// const findOrCreate = require('mongoose-findorcreate');
 const GitHubStrategy = require("Passport-GitHub2").Strategy;
 const alert = require('alert');
 
@@ -49,7 +49,7 @@ let user_id ,movie;
   userDetail.plugin(passportLocalMongoose, {
     selectFields: 'username name lname imagename'
   });
-  userDetail.plugin(findOrCreate);
+  // userDetail.plugin(findOrCreate);
   const Detail = new mongoose.model("Detail", userDetail);
   
   passport.use(Detail.createStrategy());
@@ -67,58 +67,54 @@ let user_id ,movie;
 
   
 // for google authentication
-passport.use(new GoogleStrategy({
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/portal",
-    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
-  },
-  function(accessToken, refreshToken, profile, cb) {
-    // console.log(profile);
-    Detail.findOrCreate({ googleId: profile.id, name: profile.name.givenName, lname: profile.name.familyName, imagename: profile.photos[0].value }, function (err, user) {
-      return cb(err, user);
-    });
-  }
-));
+// passport.use(new GoogleStrategy({
+//     clientID: process.env.CLIENT_ID,
+//     clientSecret: process.env.CLIENT_SECRET,
+//     callbackURL: "http://localhost:3000/auth/google/portal",
+//     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+//   },
+//   function(accessToken, refreshToken, profile, cb) {
+//     Detail.findOrCreate({ googleId: profile.id, name: profile.name.givenName, lname: profile.name.familyName, imagename: profile.photos[0].value }, function (err, user) {
+//       return cb(err, user);
+//     });
+//   }
+// ));
 
 
 // for github authentication
-passport.use(new GitHubStrategy({
-    clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/github/portal"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    // console.log(profile);
-    Detail.findOrCreate({ githubId: profile.id, name: profile.username, imagename: profile.photos[0].value  }, function (err, user) {
-      return done(err, user);
-    });
-  }
-));
+// passport.use(new GitHubStrategy({
+//     clientID: process.env.GITHUB_CLIENT_ID,
+//     clientSecret: process.env.GITHUB_CLIENT_SECRET,
+//     callbackURL: "http://localhost:3000/auth/github/portal"
+//   },
+//   function(accessToken, refreshToken, profile, done) {
+//     Detail.findOrCreate({ githubId: profile.id, name: profile.username, imagename: profile.photos[0].value  }, function (err, user) {
+//       return done(err, user);
+//     });
+//   }
+// ));
 
 
 // routes for google authentication
-app.get('/auth/google',
-  passport.authenticate("google", { scope: ["profile"] })
-);
-app.get("/auth/google/portal",
-  passport.authenticate("google", { failureRedirect: '/' }),
-  function(req, res) {
-    // movie = req.user;
-    res.redirect("/portal");
-  });
+// app.get('/auth/google',
+//   passport.authenticate("google", { scope: ["profile"] })
+// );
+// app.get("/auth/google/portal",
+//   passport.authenticate("google", { failureRedirect: '/' }),
+//   function(req, res) {
+//     res.redirect("/portal");
+//   });
 
 
   // routes for github authentication
-app.get('/auth/github',
-passport.authenticate('github', { scope: [ "profile" ] })
-);
-app.get('/auth/github/portal',
-passport.authenticate('github', { failureRedirect: '/' }),
-function(req, res) {
-  // Successful authentication, redirect to portal.
-  res.redirect('/portal');
-});
+// app.get('/auth/github',
+// passport.authenticate('github', { scope: [ "profile" ] })
+// );
+// app.get('/auth/github/portal',
+// passport.authenticate('github', { failureRedirect: '/' }),
+// function(req, res) {
+//   res.redirect('/portal');
+// });
 
 
 
